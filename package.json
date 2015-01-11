@@ -1,9 +1,13 @@
 {
-"name": "raml-files",
-"description": "Remote RAML File Store API",
-"version": "0.0.1",
-"private": true,
-"dependencies": {
-"express": "3.x"
-}
+  "name": "raml-files",
+  "description": "Remote RAML File Store API",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.x",
+    "mkdirp": "^0.5.0",
+    "raml-api-designer": "git://github.com/arthurtsang/api-designer.git#master",
+    "rimraf": "^2.2.8",
+    "sugar": "latest"
+  }
 }
