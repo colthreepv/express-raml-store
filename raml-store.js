@@ -20,11 +20,7 @@ function serveStatic (req, res, next) {
   debug('requested:', requestedFile);
   res.sendFile(requestedFile, { root: 'node_modules/api-designer/dist' }, function (err) {
     if (!!err && err.code === 'ENOENT') return res.sendStatus(404);
-    if (!!err) {
-      console.log('unexpected error happened');
-      console.log(err.stack);
-      return res.sendStatus(500);
-    }
+    if (!!err) return next(err);
   });
 }
 

@@ -4,6 +4,10 @@ Is an Express module serving the awesome work of [mulesoft](https://github.com/m
 
 Instead of saving to mongodb, it saves to the filesystem directly, exportes an handy [Express 4 Router](http://expressjs.com/guide/routing.html#express-router) that you can mount on your desired endpoint
 
+# requirement
+sorry for backwards incompatibility, but I love native promises, so this module requires [io.js 1.x](https://iojs.org/) or above.  
+It can be refactored to accept a promise library (as [bluebird](https://github.com/petkaantonov/bluebird)), instead of native Promises ([make a PR!](/pulls))
+
 # what
 This package is meant to be mounted on your development server, allowing you to edit the API spec on-the-fly and ALSO test it (since you will have your development api server up!)
 
