@@ -5,12 +5,11 @@
   "private": true,
   "dependencies": {
     "api-designer": "git://github.com/mulesoft/api-designer",
+    "body-parser": "^1.12.0",
     "debug": "^2.1.1",
     "express": "4.x",
     "mkdirp": "^0.5.0",
-    "node-fs-extra": "^0.8.1",
     "rimraf": "^2.2.8",
-    "serve-static": "^1.9.1",
     "sugar": "latest"
   }
 }
