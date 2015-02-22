@@ -2,26 +2,26 @@ var fs = require('fs');
 require('sugar');
 var mkdirp = require('mkdirp');
 var rimraf = require('rimraf');
+var path = require('path');
 var debug = require('debug')('files');
 
 var dataPath = process.env.RAML_DATAPATH || './';
-if (!dataPath.endsWith('/')) dataPath += '/';
+debug('dataPath', dataPath);
 
-var walk = function(path, done) {
-  debug( 'walking ' + path );
-  var dir = dataPath + path;
+var walk = function(reqPath, done) {
+  debug('walking ' + reqPath);
+  var dir = path.join(dataPath, reqPath);
   var results = [];
   fs.readdir(dir, function(err, list) {
-    if (err) { 
-      if( err.code === 'ENOTDIR' ) {
-          results.push({
-            path: path,
-            name: require('path').basename(path),
-            type: 'file'
-          });
-          return done(null,results);
-      }
-      else {
+    if (err) {
+      if (err.code === 'ENOTDIR') {
+        results.push({
+          path: reqPath,
+          name: path.basename(reqPath),
+          type: 'file'
+        });
+        return done(null, results);
+      } else {
         return done(err);
       }
     }
@@ -32,23 +32,23 @@ var walk = function(path, done) {
       fs.stat(file, function(err, stat) {
         if (stat && stat.isDirectory()) {
           var current = {
-            path: path + '/' + filename ,
+            path: reqPath + '/' + filename,
             name: filename,
             type: 'folder'
           };
           results.push(current);
-          walk(path+'/'+filename, function(err, res) {
+          walk(path.join(reqPath, filename), function(err, res) {
             //results = results.concat(res);
             current.children = res;
             if (!--pending) done(null, results);
           });
         } else {
-          debug( path, filename, file, dir );
+          debug(reqPath, filename, file, dir);
           results.push({
-            path: path + '/' + filename,
-            name: path + '/' + filename,
+            path: path.join(reqPath, filename),
+            name: path.join(reqPath, filename),
             type: 'file'
-            //content: fs.readFileSync(file,'utf-8')
+              //content: fs.readFileSync(file,'utf-8')
           });
           if (!--pending) done(null, results);
         }
@@ -61,82 +61,82 @@ exports.findAll = function(req, res) {
   debug('finding all files');
 
   var filelist = [];
-  var path = (req.params[0]==='/')?'':req.params[0];
+  var reqPath = (req.params[0] === '/') ? '' : req.params[0];
 
-  walk( path, function(err, result) {
+  walk(reqPath, function(err, result) {
     if (err) {
       debug(err);
       res.sendStatus(404);
     } else {
-      if( result.length == 1 ) {
-        fs.readFile(dataPath + result[0].path, {
+      if (result.length == 1) {
+        fs.readFile(path.join(dataPath, result[0].path), {
           encoding: 'utf8'
-        }, function(err,content){
-          res.header("Access-Control-Allow-Origin", "*");
+        }, function(err, content) {
+          res.header('Access-Control-Allow-Origin', '*');
           result[0].content = content;
           res.send(JSON.stringify(result));
-        })
+        });
       } else {
-        res.header("Access-Control-Allow-Origin", "*");
+        res.header('Access-Control-Allow-Origin', '*');
         res.send(JSON.stringify(result));
       }
     }
   });
-}
+};
 
 exports.addFile = function(req, res) {
   var file = req.body;
-  var path = (req.params[0]==='/')?'':req.params[0];
-  debug('Creating file: ' + path);
-  if( file.type === 'folder' ) {
-    mkdirp( dataPath + '/' + path, function(err){
-      if(!err){
-        res.header("Access-Control-Allow-Origin", "*");
+  var reqPath = (req.params[0] === '/') ? '' : req.params[0];
+  debug('Creating file: ' + reqPath);
+  if (file.type === 'folder') {
+    mkdirp(path.join(dataPath, reqPath), function(err) {
+      if (!err) {
+        res.header('Access-Control-Allow-Origin', '*');
         res.send(201);
       }
     });
   } else {
-    var dir = require('path').dirname(path);
-    var name = require('path').basename(path);
-    debug('Adding file : ' + dir + '===' + path + '--' + JSON.stringify(file));
-    mkdirp('/'+dir, function(err) {
-      fs.writeFile(dataPath+path,unescape(file.content),function(err){
-        if(err){
+    var dir = path.dirname(reqPath);
+    var name = path.basename(reqPath);
+    debug('Adding file : ' + dir + '===' + reqPath + '--' + JSON.stringify(file));
+    mkdirp(dir, function(err) {
+      fs.writeFile(path.join(dataPath, reqPath), unescape(file.content), function(err) {
+        if (err) {
           debug(err);
           res.sendStatus(500);
         } else {
-          res.header("Access-Control-Allow-Origin", "*");
+          res.header('Access-Control-Allow-Origin', '*');
           res.sendStatus(201);
         }
       });
-    });  
+    });
   }
-  
-}
+
+};
 
 exports.deleteFile = function(req, res) {
-  var path = (req.params[0]==='/')?'':req.params[0];
-  debug('Deleting file: ' + path);
-  rimraf( dataPath + path, function(err){
-    if(err){
-      debug(err);
-      res.send(500);
-    }else{
-      res.send(200);
-    }
-  });
-}
-
-exports.updateFile = function(req,res) {
-  var path = (req.params[0]==='/')?'':req.params[0];
-  var dest = req.body.newName;
-  debug('Updating file: ' + path);
-  fs.rename( dataPath+path, dataPath+dest, function(err){
-    if(err){
+  var reqPath = (req.params[0] === '/') ? '' : req.params[0];
+  debug('Deleting file: ' + reqPath);
+  rimraf(path.join(dataPath, reqPath), function(err) {
+    if (err) {
       debug(err);
       res.send(500);
     } else {
       res.send(200);
     }
   });
-}
+};
+
+exports.updateFile = function(req, res) {
+  var reqPath = (req.params[0] === '/') ? '' : req.params[0];
+  var dest = req.body.newName;
+  debug('Updating file: ' + reqPath);
+  fs.rename(path.join(dataPath, reqPath), path.join(dataPath, dest), function(err) {
+    if (err) {
+      debug(err);
+      res.send(500);
+    } else {
+      res.send(200);
+    }
+  });
+};
