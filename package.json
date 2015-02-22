@@ -13,7 +13,7 @@
       "email": "bmgtech@gmail.com"
     }
   ],
-  "main": "raml-serve.js",
+  "main": "raml-store.js",
   "keywords": [
     "mulesoft",
     "raml",

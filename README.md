@@ -21,5 +21,5 @@ app.listen(3000);
 express-raml-store also works as stand-alone:
 
 ```shell
-$ RAML_DATAPATH=api-spec/raml/ node raml-serve.js
+$ RAML_DATAPATH=api-spec/raml/ node raml-store.js
 ```
