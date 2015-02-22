@@ -33,7 +33,9 @@ module.exports = ramlServe = function (ramlPath) {
   var router = express.Router();
   var bodyParser = require('body-parser');
   // quick n dirty = setup RAML_DATAPATH without refactoring files.js
-  process.env.RAML_DATAPATH = ramlPath;
+  if (!!ramlPath) {
+    process.env.RAML_DATAPATH = ramlPath;
+  }
   var files = require('./routes/files');
 
   router.use(bodyParser.json());
@@ -47,7 +49,7 @@ module.exports = ramlServe = function (ramlPath) {
 
 if (module.parent === null) {
   var app = express();
-  app.use('/', ramlServe('RAML/'));
+  app.use('/', ramlServe());
 
   var server = app.listen(process.env.PORT || 3000, function() {
     console.log('Express server listening on ' + server.address().address + ':' + server.address().port + '/');
