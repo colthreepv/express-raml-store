@@ -25,7 +25,7 @@ angular.module('ramlEditorApp')
     $http({
         method: 'GET',
         data: '',
-        url: '/files/' + ((path === '/') ? '' : path),
+        url: 'files/' + ((path === '/') ? '' : path),
         withCredentials: false
       }).success(function(data) {
         deferred.resolve({
@@ -44,7 +44,7 @@ angular.module('ramlEditorApp')
     $http({
         method: 'GET',
         data: '',
-        url: '/files' + path,
+        url: 'files/' + path,
         withCredentials: false
       }).success(function(data) {
         deferred.resolve(data[0].content);
@@ -58,7 +58,7 @@ angular.module('ramlEditorApp')
     $http({
       method: 'DELETE',
       data: '',
-      url: '/files' + path,
+      url: 'files/' + path,
       withCredentials: false
     }).success(function(data) {
       deferred.resolve();
@@ -74,7 +74,7 @@ angular.module('ramlEditorApp')
         action: 'rename',
         newName: destination
       },
-      url: '/files' + source,
+      url: 'files/' + source,
       withCredentials: false
     }).success(function(data) {
       deferred.resolve();
@@ -89,7 +89,7 @@ angular.module('ramlEditorApp')
       data: {
         type: 'folder'
       },
-      url: '/files' + path,
+      url: 'files/' + path,
       withCredentials: false
     }).success(function(data) {
       deferred.resolve();
@@ -105,7 +105,7 @@ angular.module('ramlEditorApp')
         type: 'file',
         content: contents
       },
-      url: '/files' + path,
+      url: 'files/' + path,
       withCredentials: false
     }).success(function(data) {
       deferred.resolve();
