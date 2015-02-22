@@ -1,14 +1,14 @@
 'use strict';
 // node libs
-var fs = require('fs');
-var path = require('path');
-var url = require('url');
+let fs = require('fs');
+let path = require('path');
+let url = require('url');
 
 // deps
-var mkdirp = require('mkdirp');
-var rimraf = require('rimraf');
+let mkdirp = require('mkdirp');
+let rimraf = require('rimraf');
 
-var debug = require('debug')('raml-store-api');
+let debug = require('debug')('raml-store-api');
 
 module.exports = function (ramlPath) {
   ramlPath = ramlPath || '.';
@@ -93,7 +93,7 @@ module.exports = function (ramlPath) {
 
   // manages file and directory retrieval
   function getFn (req, res, next) {
-    var reqPath = req.params[0];
+    let reqPath = req.params[0];
     debug('getFn', 'reqPath', reqPath);
     // if (!!req.query.dir) {
     //   debug('asking for a directory');
