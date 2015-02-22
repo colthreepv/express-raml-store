@@ -12,7 +12,7 @@ angular.module('ramlEditorApp')
     var deferred = $q.defer();
     $http({
       method: 'GET',
-      url: 'files/' + ((path === '/') ? '' : path),
+      url: 'files' + path,
       withCredentials: false
     }).success(function (data) {
       deferred.resolve(data);
@@ -36,61 +36,60 @@ angular.module('ramlEditorApp')
 
   service.remove = function(path, name) {
     var deferred = $q.defer();
-    // $http({
-    //   method: 'DELETE',
-    //   data: '',
-    //   url: 'files/' + path,
-    //   withCredentials: false
-    // }).success(function(data) {
-    deferred.resolve();
-    // }).error(deferred.reject.bind(deferred));
+    $http({
+      method: 'DELETE',
+      data: '',
+      url: 'files' + path,
+      withCredentials: false
+    }).success(function(data) {
+      deferred.resolve();
+    }).error(deferred.reject.bind(deferred));
     return deferred.promise;
   };
 
   service.rename = function(source, destination) {
     var deferred = $q.defer();
-    // $http({
-    //   method: 'PUT',
-    //   data: {
-    //     action: 'rename',
-    //     newName: destination
-    //   },
-    //   url: 'files/' + source,
-    //   withCredentials: false
-    // }).success(function(data) {
-    deferred.resolve();
-    // }).error(deferred.reject.bind(deferred));
+    $http({
+      method: 'PUT',
+      data: {
+        rename: destination
+      },
+      url: 'files' + source,
+      withCredentials: false
+    }).success(function(data) {
+      deferred.resolve();
+    }).error(deferred.reject.bind(deferred));
     return deferred.promise;
   };
 
   service.createFolder = function(path) {
     var deferred = $q.defer();
-    // $http({
-    //   method: 'POST',
-    //   data: {
-    //     type: 'folder'
-    //   },
-    //   url: 'files/' + path,
-    //   withCredentials: false
-    // }).success(function(data) {
-    deferred.resolve();
-    // }).error(deferred.reject.bind(deferred));
+    $http({
+      method: 'POST',
+      data: {
+        type: 'folder'
+      },
+      url: 'files' + path,
+      withCredentials: false
+    }).success(function(data) {
+      deferred.resolve();
+    }).error(deferred.reject.bind(deferred));
     return deferred.promise;
   };
 
   service.save = function(path, contents) {
     var deferred = $q.defer();
-    // $http({
-    //   method: 'POST',
-    //   data: {
-    //     type: 'file',
-    //     content: contents
-    //   },
-    //   url: 'files/' + path,
-    //   withCredentials: false
-    // }).success(function(data) {
-    deferred.resolve();
-    // }).error(deferred.reject.bind(deferred));
+    $http({
+      method: 'POST',
+      data: {
+        type: 'file',
+        content: contents
+      },
+      url: 'files/' + path,
+      withCredentials: false
+    }).success(function(data) {
+      deferred.resolve();
+    }).error(deferred.reject.bind(deferred));
     return deferred.promise;
   };
 
