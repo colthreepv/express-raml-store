@@ -12,9 +12,9 @@ Just include the module and specify the directory where you desire to host RAML 
 
 ```javascript
 var app = require('express');
-var ramlServe = require('express-raml-store')('api-spec/raml/');
+var ramlServe = require('express-raml-store');
 
-app.use('/raml-store', ramlServe);
+app.use('/raml-store', ramlServe('api-spec/raml/'));
 app.listen(3000);
 ```
 
