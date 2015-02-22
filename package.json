@@ -31,5 +31,20 @@
     "sugar": "latest"
   },
   "analyze": true,
-  "license": "MIT"
+  "license": "MIT",
+  "jscsConfig": {
+    "preset": "airbnb",
+    "esnext": true,
+    "requireCamelCaseOrUpperCaseIdentifiers": null,
+    "disallowMultipleVarDecl": true,
+    "requireMultipleVarDecl": null,
+    "disallowSpacesInFunctionDeclaration": null,
+    "disallowSpacesInFunctionExpression": null,
+    "disallowSpacesInAnonymousFunctionExpression": null
+  },
+  "jshintConfig": {
+    "esnext": true,
+    "node": true,
+    "mocha": true
+  }
 }
