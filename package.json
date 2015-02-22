@@ -1,8 +1,26 @@
 {
-  "name": "raml-files",
-  "description": "Remote RAML File Store API",
-  "version": "0.0.1",
-  "private": true,
+  "name": "express-raml-store",
+  "version": "1.0.0",
+  "description": "Express 4 Router to serve mulesoft's api-designer, and save your work on filesystem",
+  "author": "mrgamer <mister.gamer@gmail.com",
+  "contributors": [
+    {
+      "name": "Arthur Tsang",
+      "email": "chiuwai.tsang@hp.com"
+    },
+    {
+      "name": "brianmc",
+      "email": "bmgtech@gmail.com"
+    }
+  ],
+  "main": "raml-serve.js",
+  "keywords": [
+    "mulesoft",
+    "raml",
+    "api-designer",
+    "express",
+    "router"
+  ],
   "dependencies": {
     "api-designer": "git://github.com/mulesoft/api-designer",
     "body-parser": "^1.12.0",
@@ -11,5 +29,7 @@
     "mkdirp": "^0.5.0",
     "rimraf": "^2.2.8",
     "sugar": "latest"
-  }
+  },
+  "analyze": true,
+  "license": "MIT"
 }
