@@ -7,14 +7,14 @@ var path = require('path');
 var fs = require('fs');
 var indexFile = fs.readFileSync(path.join(__dirname, 'node_modules/api-designer/dist/index.html'), 'utf8');
 indexFile = indexFile.replace(/<\/body\>/g, '<script src="angular-persistence.js"></script></body>');
-fs.writeFileSync('dist-override/index.html', indexFile, 'utf8');
+fs.writeFileSync(path.join(__dirname, 'dist-override/index.html'), indexFile, 'utf8');
 
 function serveOverride (req, res, next) {
   if (req.url === '/index.html' || req.url === '/') {
-    return res.sendFile('/index.html', { root: 'dist-override' });
+    return res.sendFile('/index.html', { root: path.join(__dirname, 'dist-override') });
   }
   if (req.url === '/angular-persistence.js') {
-    return res.sendFile('/angular-persistence.js', { root: 'dist-override' });
+    return res.sendFile('/angular-persistence.js', { root: path.join(__dirname, 'dist-override') });
   }
   var requestedFile = req.url.replace(/\?.*/, '');
   debug('requested:', requestedFile);
