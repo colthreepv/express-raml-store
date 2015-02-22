@@ -94,6 +94,7 @@ angular.module('ramlEditorApp')
     return deferred.promise;
   };
 
+  service.supportsFolders = true;
   return service;
 })
 .run(function (APIStore, config) {
