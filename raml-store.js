@@ -1,5 +1,5 @@
 var express = require('express');
-var debug = require('debug')('raml-serve');
+var debug = require('debug')('raml-store');
 
 var path = require('path');
 
@@ -9,7 +9,7 @@ var indexFile = fs.readFileSync(path.join(__dirname, 'node_modules/api-designer/
 indexFile = indexFile.replace(/<\/body\>/g, '<script src="angular-persistence.js"></script></body>');
 fs.writeFileSync(path.join(__dirname, 'dist-override/index.html'), indexFile, 'utf8');
 
-function serveOverride (req, res, next) {
+function serveStatic (req, res, next) {
   if (req.url === '/index.html' || req.url === '/') {
     return res.sendFile('/index.html', { root: path.join(__dirname, 'dist-override') });
   }
@@ -32,24 +32,20 @@ var ramlServe;
 module.exports = ramlServe = function (ramlPath) {
   var router = express.Router();
   var bodyParser = require('body-parser');
-  // quick n dirty = setup RAML_DATAPATH without refactoring files.js
-  if (!!ramlPath) {
-    process.env.RAML_DATAPATH = ramlPath;
-  }
-  var files = require('./routes/files');
 
+  var api = require('./api')(ramlPath);
   router.use(bodyParser.json());
-  router.get('/files/*', files.findAll);
-  router.post('/files/*', files.addFile);
-  router.put('/files/*', files.updateFile);
-  router.delete('/files/*', files.deleteFile);
-  router.use('/', serveOverride);
+  router.get('/files/*', api.get);
+  router.post('/files/*', api.post);
+  router.put('/files/*', api.put);
+  router.delete('/files/*', api.delete);
+  router.use('/', serveStatic);
   return router;
 };
 
 if (module.parent === null) {
   var app = express();
-  app.use('/', ramlServe());
+  app.use('/', ramlServe(process.env.RAML_DATAPATH));
 
   var server = app.listen(process.env.PORT || 3000, function() {
     console.log('Express server listening on ' + server.address().address + ':' + server.address().port + '/');
