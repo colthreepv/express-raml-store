@@ -2,6 +2,7 @@ var express = require('express'),
     router = express.Router();
 var static = require('serve-static');
 var files = require('./routes/files');
+var debug = require('debug')('raml-serve');
 
 var path = require('path');
 
@@ -24,7 +25,7 @@ function serveOverride (req, res, next) {
     return res.sendFile('/angular-persistence.js', { root: 'dist-override' });
   }
   var requestedFile = req.url.replace(/\?.*/, '');
-  console.log('requested:', req.url);
+  debug('requested:', requestedFile);
   res.sendFile(requestedFile, { root: 'node_modules/api-designer/dist' }, function (err) {
     if (!!err && err.code === 'ENOENT') return res.sendStatus(404);
     if (!!err) {

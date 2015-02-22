@@ -2,12 +2,13 @@ var fs = require('fs');
 require('sugar');
 var mkdirp = require('mkdirp');
 var rimraf = require('rimraf');
+var debug = require('debug')('files');
 
 var dataPath = process.env.RAML_DATAPATH || './';
 if (!dataPath.endsWith('/')) dataPath += '/';
 
 var walk = function(path, done) {
-  console.log( 'walking ' + path );
+  debug( 'walking ' + path );
   var dir = dataPath + path;
   var results = [];
   fs.readdir(dir, function(err, list) {
@@ -42,7 +43,7 @@ var walk = function(path, done) {
             if (!--pending) done(null, results);
           });
         } else {
-          console.log( path, filename, file, dir );
+          debug( path, filename, file, dir );
           results.push({
             path: path + '/' + filename,
             name: path + '/' + filename,
@@ -57,15 +58,15 @@ var walk = function(path, done) {
 };
 
 exports.findAll = function(req, res) {
-  console.log('finding all files');
+  debug('finding all files');
 
   var filelist = [];
   var path = (req.params[0]==='/')?'':req.params[0];
 
   walk( path, function(err, result) {
     if (err) {
-      console.log(err);
-      res.send(404);
+      debug(err);
+      res.sendStatus(404);
     } else {
       if( result.length == 1 ) {
         fs.readFile(dataPath + result[0].path, {
@@ -86,7 +87,7 @@ exports.findAll = function(req, res) {
 exports.addFile = function(req, res) {
   var file = req.body;
   var path = (req.params[0]==='/')?'':req.params[0];
-  console.log('Creating file: ' + path);
+  debug('Creating file: ' + path);
   if( file.type === 'folder' ) {
     mkdirp( dataPath + '/' + path, function(err){
       if(!err){
@@ -97,15 +98,15 @@ exports.addFile = function(req, res) {
   } else {
     var dir = require('path').dirname(path);
     var name = require('path').basename(path);
-    console.log('Adding file : ' + dir + '===' + path + '--' + JSON.stringify(file));
+    debug('Adding file : ' + dir + '===' + path + '--' + JSON.stringify(file));
     mkdirp('/'+dir, function(err) {
       fs.writeFile(dataPath+path,unescape(file.content),function(err){
         if(err){
-          console.log(err);
-          res.send(500);
+          debug(err);
+          res.sendStatus(500);
         } else {
           res.header("Access-Control-Allow-Origin", "*");
-          res.send(201);
+          res.sendStatus(201);
         }
       });
     });  
@@ -115,10 +116,10 @@ exports.addFile = function(req, res) {
 
 exports.deleteFile = function(req, res) {
   var path = (req.params[0]==='/')?'':req.params[0];
-  console.log('Deleting file: ' + path);
+  debug('Deleting file: ' + path);
   rimraf( dataPath + path, function(err){
     if(err){
-      console.log(err);
+      debug(err);
       res.send(500);
     }else{
       res.send(200);
@@ -129,10 +130,10 @@ exports.deleteFile = function(req, res) {
 exports.updateFile = function(req,res) {
   var path = (req.params[0]==='/')?'':req.params[0];
   var dest = req.body.newName;
-  console.log('Updating file: ' + path);
+  debug('Updating file: ' + path);
   fs.rename( dataPath+path, dataPath+dest, function(err){
     if(err){
-      console.log(err);
+      debug(err);
       res.send(500);
     } else {
       res.send(200);

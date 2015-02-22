@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "api-designer": "git://github.com/mulesoft/api-designer",
+    "debug": "^2.1.1",
     "express": "4.x",
     "mkdirp": "^0.5.0",
     "node-fs-extra": "^0.8.1",
