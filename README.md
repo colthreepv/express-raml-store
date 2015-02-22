@@ -1,35 +1,25 @@
-# RAML Store
+# express-raml-store
+fork of [arthurtsang/raml-store](https://github.com/arthurtsang/raml-store), that is a fork of [brianmc/raml-store](https://github.com/brianmc/raml-store).  
+Is an Express module serving the awesome work of [mulesoft](https://github.com/mulesoft)/[api-designer](https://github.com/mulesoft/api-designer)  
 
-fork [raml-store](https://github.com/brianmc/raml-store).  but instead of saving to mongodb, it saves to the filesystem directly.  
+Instead of saving to mongodb, it saves to the filesystem directly, exportes an handy [Express 4 Router](http://expressjs.com/guide/routing.html#express-router) that you can mount on your desired endpoint
 
-## Configuration
+# what
+This package is meant to be mounted on your development server, allowing you to edit the API spec on-the-fly and ALSO test it (since you will have your development api server up!)
 
-process.env.RAML_PORT=3000
-process.env.RAML_DATAPATH=.
+# how to use
+Just include the module and specify the directory where you desire to host RAML files.
 
-## To use
+```javascript
+var app = require('express');
+var ramlServe = require('express-raml-store')('api-spec/raml/');
 
-node server.js
+app.use('/raml-store', ramlServe);
+app.listen(3000);
+```
 
-assuming RAML_PORT is set to 3000 and RAML_DATAPATH is set to /var/raml, access http://localhost:3000, all files in /var/raml will be listed in the designer.
+express-raml-store also works as stand-alone:
 
-## Running docker container
-
-docker run -d --name raml-store 
-	-e "RAML_DATAPATH=/var/raml" 
-	-v /var/raml:/var/raml 
-	-p 3000:3000 
-	arthurtsang/raml-store
-
-assuming you've checked out your RAML files to /var/raml from your git repo.
-
-## Reason doing this
-
-instead of keeping the RAML files in a database, I'd like to keep them in github so we can perform code review without worrying about permission, merging,...
-
-## Disclaimer
-
-the code to walk the directory is basically copied from [stackoverflow](http://stackoverflow.com/questions/5827612/node-js-fs-readdir-recursive-directory-search)
-
-[hadesbox's fork](https://github.com/hadesbox/raml-api-designer-store) of raml-store also helps a lot
-
+```shell
+$ RAML_DATAPATH=api-spec/raml/ node raml-serve.js
+```
