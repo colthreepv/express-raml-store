@@ -9,16 +9,39 @@ sorry for backwards incompatibility, but I love native promises, so this module 
 It can be refactored to accept a promise library (as [bluebird](https://github.com/petkaantonov/bluebird)), instead of native Promises ([make a PR!](/pulls))
 
 # what
-This package is meant to be mounted on your development server, allowing you to edit the API spec on-the-fly and ALSO test it (since you will have your development api server up!)
+This package is meant to be mounted on your express server when in development mode, allowing to edit the API specification on-the-fly and
+_ALSO_ test it (if your development server handles the API)
+
+Example:
+```javascript
+var app = require('express');
+var ramlStore = require('express-raml-store');
+
+// webpages
+app.get('/', serveMyHomePage);
+app.get('/admin/', greatAdminPanel);
+
+// REST API
+app.get('/api/', apiHandler);
+
+if (process.env.NODE_ENV !== 'production') {
+  app.use('/api-docs/', ramlStore(path.join(__dirname, 'raml-dir/')));
+}
+
+// continue until...
+app.listen(3000)
+```
+
 
 # how to use
 Just include the module and specify the directory where you desire to host RAML files.
 
 ```javascript
+var path = require('path');
 var app = require('express');
-var ramlServe = require('express-raml-store');
+var ramlStore = require('express-raml-store');
 
-app.use('/raml-store', ramlServe('api-spec/raml/'));
+app.use('/raml-store', ramlStore(path.join(__dirname, 'raml-dir/')));
 app.listen(3000);
 ```
 
@@ -27,3 +50,8 @@ express-raml-store also works as stand-alone:
 ```shell
 $ RAML_DATAPATH=api-spec/raml/ node raml-store.js
 ```
+
+# TODO(s)
+I noticed that path traversing is not my best skill, as you see in the example I give up and suggest to use `path.join(__dirname, '<ramlPath>')`
+I think this is a good approach, but I'd rather make the library a little more clever on path solving.  
+PR are very welcome!
