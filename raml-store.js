@@ -18,7 +18,7 @@ function serveStatic (req, res, next) {
   }
   var requestedFile = req.url.replace(/\?.*/, '');
   debug('requested:', requestedFile);
-  res.sendFile(requestedFile, { root: 'node_modules/api-designer/dist' }, function (err) {
+  res.sendFile(requestedFile, { root: path.join(__dirname, 'node_modules/api-designer/dist') }, function (err) {
     if (!!err && err.code === 'ENOENT') return res.sendStatus(404);
     if (!!err) return next(err);
   });
