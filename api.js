@@ -102,7 +102,7 @@ module.exports = function (ramlPath) {
     stat(reqPath)
     .then(function (content) {
       if (!!content.type && content.type === 'file') {
-        return res.sendFile(reqPath, { root: path.join(__dirname, ramlPath) });
+        return res.sendFile(reqPath, { root: ramlPath });
       }
       res.status(200).json(content);
     }, function (err) {
