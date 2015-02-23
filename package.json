@@ -13,7 +13,14 @@
       "email": "bmgtech@gmail.com"
     }
   ],
+  "scripts": {
+    "test": "node_modules/.bin/mocha -R spec test/"
+  },
   "main": "raml-store.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mrgamer/express-raml-store"
+  },
   "keywords": [
     "mulesoft",
     "raml",
@@ -46,5 +53,10 @@
     "esnext": true,
     "node": true,
     "mocha": true
+  },
+  "devDependencies": {
+    "chai": "^2.0.0",
+    "mocha": "^2.1.0",
+    "supertest": "^0.15.0"
   }
 }
