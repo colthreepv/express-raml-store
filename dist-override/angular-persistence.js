@@ -26,7 +26,8 @@ angular.module('ramlEditorApp')
     $http({
         method: 'GET',
         url: 'files' + path,
-        withCredentials: false
+        withCredentials: false,
+        transformResponse: function(data) { return data; }
       }).success(function(data) {
         deferred.resolve(data);
       })
