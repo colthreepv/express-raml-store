@@ -1,1 +1,22 @@
 #%RAML 0.8
+title: express-raml-test-api
+version: 1.0.0
+baseUri: /
+mediaType: application/json
+protocols: [ HTTP ]
+/files/{name}:
+  uriParameters:
+    name:
+      type: string
+      description: file to request
+      example: "test.raml"
+  get:
+    description: get the content of a specific file or directory
+    responses:
+      200:
+        description: content of the file
+        body:
+          application/json:
+            example: "#%RAML 0.8\ntitle:"
+      404:
+        description: file not found
