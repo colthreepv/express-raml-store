@@ -97,7 +97,8 @@ angular.module('ramlEditorApp')
   service.supportsFolders = true;
   return service;
 })
-.run(function (APIStore, config) {
+.run(function (APIStore, config, $window) {
   // Set APIStore as the filesystem to use
   config.set('fsFactory', 'APIStore');
+  delete $window.RAML.Settings.proxy;
 });

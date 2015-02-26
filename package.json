@@ -1,6 +1,6 @@
 {
   "name": "express-raml-store",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Express 4 Router to serve mulesoft's api-designer, and save your work on filesystem",
   "author": "mrgamer <mister.gamer@gmail.com",
   "contributors": [
