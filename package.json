@@ -34,10 +34,8 @@
     "debug": "^2.1.1",
     "express": "4.x",
     "mkdirp": "^0.5.0",
-    "rimraf": "^2.2.8",
-    "sugar": "latest"
+    "rimraf": "^2.2.8"
   },
-  "analyze": true,
   "license": "MIT",
   "jscsConfig": {
     "preset": "airbnb",
