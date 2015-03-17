@@ -38,11 +38,14 @@ Just include the module and specify the directory where you desire to host RAML 
 
 ```javascript
 var path = require('path');
-var app = require('express');
+var express = require('express');
 var ramlStore = require('express-raml-store');
+var app = express();
 
 app.use('/raml-store', ramlStore(path.join(__dirname, 'raml-dir/')));
-app.listen(3000);
+var server = app.listen(3000, function () {
+  console.log('Open http://localhost:%d/raml-store/ to browse api-designer', server.address().port);
+});
 ```
 
 express-raml-store also works as stand-alone:
