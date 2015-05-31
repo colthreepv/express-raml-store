@@ -1,14 +1,14 @@
 'use strict';
-let debug = require('debug')('raml-store-test');
-let request = require('supertest');
-let chai = require('chai');
-let expect = chai.expect;
-let fs = require('fs');
-let path = require('path');
+var debug = require('debug')('raml-store-test');
+var request = require('supertest');
+var chai = require('chai');
+var expect = chai.expect;
+var fs = require('fs');
+var path = require('path');
 
-let express = require('express');
-let app = express();
-let ramlRouter = require('../raml-store')('RAML');
+var express = require('express');
+var app = express();
+var ramlRouter = require('../raml-store')('RAML');
 app.use('/api-spec/', ramlRouter);
 
 describe('testing override api-designer', function () {
@@ -57,7 +57,7 @@ describe.only('angular-persistence functionality covered', function () {
 
   describe('remove functionality', function () {
     it('should delete a specific directory', function (done) {
-      let testPath = path.resolve(__dirname, '..', 'RAML', 'anotherfolder');
+      var testPath = path.resolve(__dirname, '..', 'RAML', 'anotherfolder');
       fs.mkdirSync(testPath);
 
       request(app)
@@ -70,8 +70,8 @@ describe.only('angular-persistence functionality covered', function () {
     });
 
     it('should delete a nested directory', function (done) {
-      let testPath = path.resolve(__dirname, '..', 'RAML', 'anotherfolder');
-      let testPath2 = path.resolve(__dirname, '..', 'RAML', 'anotherfolder', 'nestedmore');
+      var testPath = path.resolve(__dirname, '..', 'RAML', 'anotherfolder');
+      var testPath2 = path.resolve(__dirname, '..', 'RAML', 'anotherfolder', 'nestedmore');
       fs.mkdirSync(testPath);
       fs.mkdirSync(testPath2);
 
@@ -86,7 +86,7 @@ describe.only('angular-persistence functionality covered', function () {
     });
 
     it('should delete a specific file', function (done) {
-      let testFile = path.resolve(__dirname, '..', 'RAML', 'randomSpec.raml');
+      var testFile = path.resolve(__dirname, '..', 'RAML', 'randomSpec.raml');
 
       fs.writeFileSync(testFile, 'BLABLABLA');
       request(app)
@@ -100,8 +100,8 @@ describe.only('angular-persistence functionality covered', function () {
   });
 
   it('should allow rename(), rename randomSpec.raml => goodfile.raml', function (done) {
-    let sourceFile = path.resolve(__dirname, '..', 'RAML', 'randomSpec.raml');
-    let destFile = path.resolve(__dirname, '..', 'RAML', 'goodfile.raml');
+    var sourceFile = path.resolve(__dirname, '..', 'RAML', 'randomSpec.raml');
+    var destFile = path.resolve(__dirname, '..', 'RAML', 'goodfile.raml');
 
     fs.writeFileSync(sourceFile, 'BLABLABLA');
     request(app)
@@ -116,7 +116,7 @@ describe.only('angular-persistence functionality covered', function () {
   });
 
   it('should allow createFolder(), create RAML/newdir', function (done) {
-    let testPath = path.resolve(__dirname, '..', 'RAML', 'anotherfolder');
+    var testPath = path.resolve(__dirname, '..', 'RAML', 'anotherfolder');
 
     request(app)
     .post('/api-spec/files/anotherfolder')
@@ -130,7 +130,7 @@ describe.only('angular-persistence functionality covered', function () {
   });
 
   it('should allow save(), writing RAML/demoapi.raml', function (done) {
-    let testFile = path.resolve(__dirname, '..', 'RAML', 'demoapi.raml');
+    var testFile = path.resolve(__dirname, '..', 'RAML', 'demoapi.raml');
 
     request(app)
     .post('/api-spec/files/demoapi.raml')

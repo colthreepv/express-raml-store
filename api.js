@@ -1,14 +1,15 @@
 'use strict';
 // node libs
-let fs = require('fs');
-let path = require('path');
-let url = require('url');
+var fs = require('fs');
+var path = require('path');
+var url = require('url');
+var Promise = require('bluebird');
 
 // deps
-let mkdirp = require('mkdirp');
-let rimraf = require('rimraf');
+var mkdirp = require('mkdirp');
+var rimraf = require('rimraf');
 
-let debug = require('debug')('raml-store-api');
+var debug = require('debug')('raml-store-api');
 
 module.exports = function (ramlPath) {
   ramlPath = ramlPath || '.';
@@ -48,15 +49,15 @@ module.exports = function (ramlPath) {
   function listDirectory (reqPath) {
     debug('listDirectory', 'reqPath', reqPath);
     // result of the call is referenced here
-    let result;
+    var result;
     // first promise reads content of a directory
     return new Promise(function (resolve, reject) {
-      let absPath = path.join(ramlPath, reqPath);
+      var absPath = path.join(ramlPath, reqPath);
 
       fs.readdir(absPath, function (err, files) {
         if (!!err) return reject(err);
 
-        let fixedPath = (reqPath.startsWith('/')) ? reqPath : url.resolve('/', reqPath);
+        var fixedPath = (reqPath.match(/^\//)) ? reqPath : url.resolve('/', reqPath);
         result = {
           path: fixedPath,
           name: fixedPath,
@@ -96,7 +97,7 @@ module.exports = function (ramlPath) {
 
   // manages file and directory retrieval
   function getFn (req, res, next) {
-    let reqPath = req.params[0];
+    var reqPath = req.params[0];
     debug('getFn', 'reqPath', reqPath);
 
     stat(reqPath)
@@ -115,8 +116,8 @@ module.exports = function (ramlPath) {
 
   // save/create file
   function postFn (req, res, next) {
-    let body = req.body;
-    let reqPath = req.params[0];
+    var body = req.body;
+    var reqPath = req.params[0];
     debug('postFn', 'reqPath', reqPath);
 
     if (body.type === 'folder') {
@@ -135,8 +136,8 @@ module.exports = function (ramlPath) {
 
   // rename file/folder
   function putFn (req, res, next) {
-    let reqPath = req.params[0];
-    let destination = req.body.rename;
+    var reqPath = req.params[0];
+    var destination = req.body.rename;
     debug('putFn', 'reqPath', reqPath);
 
     fs.rename(path.join(ramlPath, reqPath), path.join(ramlPath, destination), function (err) {
