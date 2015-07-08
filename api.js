@@ -3,7 +3,7 @@
 var fs = require('fs');
 var path = require('path');
 var url = require('url');
-var Promise = require('bluebird');
+var Promise = (!Promise) ? require('bluebird') : Promise;
 
 // deps
 var mkdirp = require('mkdirp');

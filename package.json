@@ -1,6 +1,6 @@
 {
   "name": "express-raml-store",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Express 4 Router to serve mulesoft's api-designer, and save your work on filesystem",
   "author": "mrgamer <mister.gamer@gmail.com",
   "contributors": [
@@ -36,10 +36,8 @@
     "mkdirp": "^0.5.1",
     "rimraf": "^2.4.1"
   },
-  },
   "license": "MIT",
   "devDependencies": {
-    "bluebird": "^2.9.27",
     "chai": "^3.0.0",
     "mocha": "^2.2.5",
     "supertest": "^1.0.1"
