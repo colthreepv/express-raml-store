@@ -62,6 +62,12 @@ PR are very welcome!
 
 # Changelog
 
+> ## [1.1.1](https://github.com/mrgamer/express-raml-store/tree/1.1.1) (2015-07-08)
+>
+> **bluebird dependency lifted**
+>
+> - Bluebird Dependency [\#4](https://github.com/mrgamer/express-raml-store/issues/4)
+
 > ## [1.1.0](https://github.com/mrgamer/express-raml-store/tree/1.1.0) (2015-05-31)
 >
 > **Node.js is now supported**
