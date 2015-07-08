@@ -24,7 +24,7 @@ module.exports = function (ramlPath) {
   function stat (reqPath) {
     return new Promise(function (resolve, reject) {
       fs.stat(path.join(ramlPath, reqPath), function (err, stat) {
-        if (!!err) {
+        if (err) {
           if (err.code === 'ENOENT') {
             return reject(err.code);
           }
@@ -55,7 +55,7 @@ module.exports = function (ramlPath) {
       var absPath = path.join(ramlPath, reqPath);
 
       fs.readdir(absPath, function (err, files) {
-        if (!!err) return reject(err);
+        if (err) return reject(err);
 
         var fixedPath = (reqPath.match(/^\//)) ? reqPath : url.resolve('/', reqPath);
         result = {
@@ -122,14 +122,14 @@ module.exports = function (ramlPath) {
 
     if (body.type === 'folder') {
       mkdirp(path.join(ramlPath, reqPath), function (err) {
-        if (!!err) return next(err);
+        if (err) return next(err);
         res.sendStatus(201);
       });
       return;
     }
 
     fs.writeFile(path.join(ramlPath, reqPath), body.content, function (err) {
-      if (!!err) return next(err);
+      if (err) return next(err);
       res.sendStatus(201);
     });
   }
@@ -141,7 +141,7 @@ module.exports = function (ramlPath) {
     debug('putFn', 'reqPath', reqPath);
 
     fs.rename(path.join(ramlPath, reqPath), path.join(ramlPath, destination), function (err) {
-      if (!!err) return next(err);
+      if (err) return next(err);
       res.sendStatus(200);
     });
   }
@@ -152,7 +152,7 @@ module.exports = function (ramlPath) {
     debug('deleteFn', 'reqPath', reqPath);
 
     rimraf(path.join(ramlPath, reqPath), function (err) {
-      if (!!err) return next(err);
+      if (err) return next(err);
       res.sendStatus(200);
     });
   }

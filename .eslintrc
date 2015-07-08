@@ -1,0 +1,32 @@
+{
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "brace-style": [2, "1tbs"],
+    "comma-style": [2, "last"],
+    "curly": [2, "multi-line"],
+    "default-case": 2,
+    "func-style": [2, "declaration"],
+    "global-strict": 0,
+    "guard-for-in": 0,
+    "indent": [2, 2],
+    "new-cap": 0,
+    "no-floating-decimal": 2,
+    "no-mixed-requires": 0,
+    "no-nested-ternary": 2,
+    "no-shadow": 0,
+    "no-use-before-define": [2, "nofunc"],
+    "no-unused-vars": [2, { "vars": "local", "args": "none" }],
+    "no-var": 0,
+    "quotes": [1, "single"],
+    "radix": 2,
+    "space-after-keywords": [2, "always"],
+    "space-before-blocks": 2,
+    "space-before-function-parentheses": 2,
+    "spaced-line-comment": [2, "always", { "exceptions": ["-"]}],
+    "strict": [2, "global"],
+    "valid-jsdoc": [0, { "prefer": { "return": "returns"}}]
+  }
+}

@@ -1,14 +1,19 @@
 'use strict';
-var debug = require('debug')('raml-store-test');
-var request = require('supertest');
-var chai = require('chai');
-var expect = chai.expect;
-var fs = require('fs');
-var path = require('path');
+var
+  debug = require('debug')('raml-store-test'),
+  request = require('supertest'),
+  chai = require('chai'),
+  expect = chai.expect;
 
-var express = require('express');
-var app = express();
-var ramlRouter = require('../raml-store')('RAML');
+var
+  fs = require('fs'),
+  path = require('path');
+
+var
+  express = require('express'),
+  app = express();
+
+var ramlRouter = require('../')('RAML');
 app.use('/api-spec/', ramlRouter);
 
 describe('testing override api-designer', function () {
@@ -39,6 +44,7 @@ describe.only('angular-persistence functionality covered', function () {
     request(app)
     .get('/api-spec/files/')
     .expect(200, function (err, res) {
+      if (err) return done(err);
       expect(res.body).to.be.an('object');
       expect(res.body).to.contain.all.keys('path', 'name', 'type', 'children');
       expect(res.body).to.have.property('children').that.is.an('array');

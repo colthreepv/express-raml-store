@@ -1,10 +1,13 @@
-var express = require('express');
-var debug = require('debug')('raml-store');
+'use strict';
+var
+  express = require('express'),
+  debug = require('debug')('raml-store');
 
-var path = require('path');
+var
+  path = require('path'),
+  fs = require('fs');
 
-// creates dist-override/index.html
-var fs = require('fs');
+// creates dist-override/index.html synchronously
 var indexFile = fs.readFileSync(path.join(__dirname, 'node_modules/api-designer/dist/index.html'), 'utf8');
 indexFile = indexFile.replace(/<\/body\>/g, '<script src="angular-persistence.js"></script></body>');
 fs.writeFileSync(path.join(__dirname, 'dist-override/index.html'), indexFile, 'utf8');
@@ -19,8 +22,8 @@ function serveStatic (req, res, next) {
   var requestedFile = req.url.replace(/\?.*/, '');
   debug('requested:', requestedFile);
   res.sendFile(requestedFile, { root: path.join(__dirname, 'node_modules/api-designer/dist') }, function (err) {
-    if (!!err && err.code === 'ENOENT') return res.sendStatus(404);
-    if (!!err) return next(err);
+    if (err && err.code === 'ENOENT') return res.sendStatus(404);
+    if (err) return next(err);
   });
 }
 
@@ -43,7 +46,7 @@ if (module.parent === null) {
   var app = express();
   app.use('/', ramlServe(process.env.RAML_DATAPATH));
 
-  var server = app.listen(process.env.PORT || 3000, function() {
+  var server = app.listen(process.env.PORT || 3000, function () {
     console.log('Express server listening on ' + server.address().address + ':' + server.address().port + '/');
   });
 }
