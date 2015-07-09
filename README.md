@@ -62,9 +62,9 @@ PR are very welcome!
 
 # Changelog
 
-> ## [1.1.1](https://github.com/mrgamer/express-raml-store/tree/1.1.1) (2015-07-08)
+> ## [1.1.2](https://github.com/mrgamer/express-raml-store/tree/1.1.2) (2015-07-08)
 >
-> **bluebird dependency lifted**
+> **bluebird dependency added**
 >
 > - Bluebird Dependency [\#4](https://github.com/mrgamer/express-raml-store/issues/4)
 
