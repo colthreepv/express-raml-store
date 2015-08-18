@@ -62,6 +62,11 @@ PR are very welcome!
 
 # Changelog
 
+>## [1.2.0](https://github.com/mrgamer/express-raml-store/tree/1.2.0) (2015-08-18)
+>
+>  **using `api-designer` package from npm
+>
+
 > ## [1.1.2](https://github.com/mrgamer/express-raml-store/tree/1.1.2) (2015-07-08)
 >
 > **bluebird dependency added**
