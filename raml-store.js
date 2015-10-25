@@ -8,7 +8,15 @@ var
   fs = require('fs');
 
 // creates dist-override/index.html synchronously
-var indexFile = fs.readFileSync(path.join(__dirname, 'node_modules/api-designer/dist/index.html'), 'utf8');
+var indexFile
+try { // support both npm 2.x and 3.x
+  // npm 2.x subdir
+  indexFile = fs.readFileSync(path.join(__dirname, 'node_modules/api-designer/dist/index.html'), 'utf8');
+} catch (err) {
+  // npm 3.x brother dir
+  indexFile = fs.readFileSync(path.join(__dirname, '..', '/api-designer/dist/index.html'), 'utf8');
+}
+
 indexFile = indexFile.replace(/<\/body\>/g, '<script src="angular-persistence.js"></script></body>');
 fs.writeFileSync(path.join(__dirname, 'dist-override/index.html'), indexFile, 'utf8');
 

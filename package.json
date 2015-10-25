@@ -1,8 +1,8 @@
 {
   "name": "express-raml-store",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Express 4 Router to serve mulesoft's api-designer, and save your work on filesystem",
-  "author": "mrgamer <mister.gamer@gmail.com",
+  "author": "colthreepv <mister.gamer@gmail.com",
   "contributors": [
     {
       "name": "Arthur Tsang",
@@ -19,7 +19,7 @@
   "main": "raml-store.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mrgamer/express-raml-store"
+    "url": "https://github.com/colthreepv/express-raml-store"
   },
   "keywords": [
     "mulesoft",
@@ -29,7 +29,7 @@
     "router"
   ],
   "dependencies": {
-    "api-designer": "0.0.5",
+    "api-designer": "^0.0.6",
     "bluebird": "^2.9.32",
     "body-parser": "^1.13.2",
     "debug": "^2.2.0",
@@ -40,6 +40,8 @@
   "license": "MIT",
   "devDependencies": {
     "chai": "^3.0.0",
+    "debug": "^2.2.0",
+    "express": "^4.13.3",
     "mocha": "^2.2.5",
     "supertest": "^1.0.1"
   }

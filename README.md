@@ -57,24 +57,27 @@ PR are very welcome!
 
 # Contributors
 
-  * [mrgamer](https://github.com/mrgamer)
+  * [colthreepv](https://github.com/colthreepv)
   * [jmagnusson](https://github.com/jmagnusson)
 
 # Changelog
 
->## [1.2.0](https://github.com/mrgamer/express-raml-store/tree/1.2.0) (2015-08-18)
+>## [1.2.1](https://github.com/colthreepv/express-raml-store/tree/1.2.1) (2015-10-25)
+>
+>  * now supports both `npm` (2.x) and `npm@next` or `npm@3`, the 3.x branch default with nodejs 5.x
+
+>## [1.2.0](https://github.com/colthreepv/express-raml-store/tree/1.2.0) (2015-08-18)
 >
 >  **using `api-designer` package from npm
->
 
-> ## [1.1.2](https://github.com/mrgamer/express-raml-store/tree/1.1.2) (2015-07-08)
+> ## [1.1.2](https://github.com/colthreepv/express-raml-store/tree/1.1.2) (2015-07-08)
 >
 > **bluebird dependency added**
 >
-> - Bluebird Dependency [\#4](https://github.com/mrgamer/express-raml-store/issues/4)
+> - Bluebird Dependency [\#4](https://github.com/colthreepv/express-raml-store/issues/4)
 
-> ## [1.1.0](https://github.com/mrgamer/express-raml-store/tree/1.1.0) (2015-05-31)
+> ## [1.1.0](https://github.com/colthreepv/express-raml-store/tree/1.1.0) (2015-05-31)
 >
 > **Node.js is now supported**
 >
-> - Node.js support [\#3](https://github.com/mrgamer/express-raml-store/pull/3)
+> - Node.js support [\#3](https://github.com/colthreepv/express-raml-store/pull/3)
