@@ -8,13 +8,17 @@ var
   fs = require('fs');
 
 // creates dist-override/index.html synchronously
-var indexFile
+var
+  indexFile,
+  apiDesignerRoot;
 try { // support both npm 2.x and 3.x
   // npm 2.x subdir
   indexFile = fs.readFileSync(path.join(__dirname, 'node_modules/api-designer/dist/index.html'), 'utf8');
+  apiDesignerRoot = 'node_modules';
 } catch (err) {
   // npm 3.x brother dir
   indexFile = fs.readFileSync(path.join(__dirname, '..', '/api-designer/dist/index.html'), 'utf8');
+  apiDesignerRoot = '..';
 }
 
 indexFile = indexFile.replace(/<\/body\>/g, '<script src="angular-persistence.js"></script></body>');
@@ -29,7 +33,7 @@ function serveStatic (req, res, next) {
   }
   var requestedFile = req.url.replace(/\?.*/, '');
   debug('requested:', requestedFile);
-  res.sendFile(requestedFile, { root: path.join(__dirname, 'node_modules/api-designer/dist') }, function (err) {
+  res.sendFile(requestedFile, { root: path.join(__dirname, apiDesignerRoot, '/api-designer/dist') }, function (err) {
     if (err && err.code === 'ENOENT') return res.sendStatus(404);
     if (err) return next(err);
   });
