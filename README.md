@@ -59,8 +59,13 @@ PR are very welcome!
 
   * [colthreepv](https://github.com/colthreepv)
   * [jmagnusson](https://github.com/jmagnusson)
+  * [arcesino](https://github.com/arcesino)
 
 # Changelog
+
+>## [1.2.2](https://github.com/colthreepv/express-raml-store/tree/1.2.2) (2016-08-14)
+>
+>  * fix style and script serving #6
 
 >## [1.2.1](https://github.com/colthreepv/express-raml-store/tree/1.2.1) (2015-10-25)
 >
